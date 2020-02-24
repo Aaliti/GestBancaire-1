@@ -4,13 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = "compte_seq",allocationSize = 1)
+@SequenceGenerator(name = "compte_seq", allocationSize = 1)
 public class Compte {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "compte_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compte_seq")
     private long compteId;
-
     private String nom;
 
     @OneToMany(mappedBy = "compte")
@@ -19,9 +18,9 @@ public class Compte {
     public Compte() {
     }
 
-    public Compte(long compteId,String nom) {
-        this.compteId=compteId;
-        this.nom=nom;
+    public Compte(long compteId, String nom) {
+        this.compteId = compteId;
+        this.nom = nom;
     }
 
     public long getId() {
