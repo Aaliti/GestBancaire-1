@@ -13,6 +13,8 @@
             <th> Id</th>
             <th> Nom</th>
             <th> Historique</th>
+            <th> Transaction</th>
+
         </tr>
         </thead>
         <tbody>
@@ -21,6 +23,9 @@
             <td th:text="${aCompte.getNom()}"/>
             <td>
                 <a th:href="'/'+${aCompte.id}+'/operations'" class="btn btn-info btn-xs"> Historique </a>
+            </td>
+            <td>
+                <a th:href="'/'+${aCompte.id}+'/transactions'" class="btn btn-info btn-xs"> Transaction </a>
             </td>
         </tr>
         </tbody>

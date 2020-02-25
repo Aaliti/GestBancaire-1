@@ -58,4 +58,14 @@ public class Operation {
     public void setCompte(Compte compte) {
         this.compte = compte;
     }
+
+    @Override
+    public String toString() {
+        return "Operation{" +
+                "id=" + id +
+                ", montant=" + montant +
+                ", date=" + date +
+                ", compte=" + compte +
+                '}';
+    }
 }
