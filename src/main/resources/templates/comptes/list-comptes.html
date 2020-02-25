@@ -12,6 +12,7 @@
         <tr>
             <th> Id</th>
             <th> Nom</th>
+            <th> Solde</th>
             <th> Historique</th>
             <th> Transaction</th>
 
@@ -19,13 +20,14 @@
         </thead>
         <tbody>
         <tr th:each="aCompte : ${comptesList}">
-            <td th:text="${aCompte.getId()}"/>
-            <td th:text="${aCompte.getNom()}"/>
+            <td th:text="${aCompte.compteId}"/>
+            <td th:text="${aCompte.nom}"/>
+            <td th:text="${aCompte.solde}"/>
             <td>
-                <a th:href="'/'+${aCompte.id}+'/operations'" class="btn btn-info btn-xs"> Historique </a>
+                <a th:href="'/'+${aCompte.compteId}+'/operations'" class="btn btn-info btn-xs"> Historique </a>
             </td>
             <td>
-                <a th:href="'/'+${aCompte.id}+'/transactions'" class="btn btn-info btn-xs"> Transaction </a>
+                <a th:href="'/'+${aCompte.compteId}+'/transactions'" class="btn btn-info btn-xs"> Transaction </a>
             </td>
         </tr>
         </tbody>

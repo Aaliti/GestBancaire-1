@@ -3,6 +3,7 @@ package com.virtuo.gestbancaire.controllers;
 
 import com.virtuo.gestbancaire.Services.CompteService;
 import com.virtuo.gestbancaire.Services.OperationService;
+import com.virtuo.gestbancaire.dto.CompteSolde;
 import com.virtuo.gestbancaire.entities.Compte;
 import com.virtuo.gestbancaire.entities.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,9 @@ public class OperationController {
     @GetMapping("/comptes")
     public String listComptes(Model model) {
 
-        List<Compte> comptes = compServ.getAll();
-        model.addAttribute("comptesList", comptes);
+        //List<Compte> comptes = compServ.getAll();
+        List<CompteSolde> comptesSolde = operServ.getCompteSolde();
+        model.addAttribute("comptesList", comptesSolde);
         return "comptes/list-comptes";
     }
 

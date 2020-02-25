@@ -1,6 +1,10 @@
 package com.virtuo.gestbancaire.entities;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -10,7 +14,11 @@ public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "operation_seq")
     private long id;
+
+    @NotEmpty
+    @NotNull
     private double montant;
+
     private Date date=new Date();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

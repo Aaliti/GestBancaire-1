@@ -1,6 +1,7 @@
 package com.virtuo.gestbancaire.Services;
 
 import com.virtuo.gestbancaire.dao.OperationRepository;
+import com.virtuo.gestbancaire.dto.CompteSolde;
 import com.virtuo.gestbancaire.entities.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,4 +51,7 @@ public class OperationService {
     }
 
 
+    public List<CompteSolde> getCompteSolde(){
+        return operRepo.getCompteSolde();
+    }
 }
