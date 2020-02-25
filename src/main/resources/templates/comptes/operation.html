@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts :: header"></head>
+
+<body>
+
+<div class="container">
+    <h3>Solde</h3>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th> Id </th>
+            <th> Nom </th>
+            <th> solde </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${compte.getId()}"/>
+            <td th:text="${compte.getNom()}"/>
+            <td th:text="${solde}"/>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
