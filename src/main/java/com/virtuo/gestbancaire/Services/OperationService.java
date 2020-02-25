@@ -38,6 +38,10 @@ public class OperationService {
         return operRepo.findAll(pageable);
     }
 
+    public double getSolde(Long id ){
+        return operRepo.getSolde(id);
+    }
+
 
 
 }

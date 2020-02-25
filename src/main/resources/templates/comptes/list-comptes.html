@@ -20,7 +20,7 @@
                 <td th:text="${aCompte.getId()}"/>
                 <td th:text="${aCompte.getNom()}"/>
                 <td>
-                    <a th:href="@{/${aCompte.id}+'/operations'}" class="btn btn-info btn-xs"> Historique </a>
+                    <a th:href="'/'+${aCompte.id}+'/operations'" class="btn btn-info btn-xs"> Historique </a>
                 </td>
             </tr>
             </tbody>

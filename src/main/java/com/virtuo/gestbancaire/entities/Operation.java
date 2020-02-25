@@ -11,7 +11,7 @@ public class Operation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "operation_seq")
     private long id;
     private double montant;
-    private Date date;
+    private Date date=new Date();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "compte_id")
@@ -42,6 +42,7 @@ public class Operation {
         this.montant = montant;
     }
 
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getDate() {
         return date;
     }
