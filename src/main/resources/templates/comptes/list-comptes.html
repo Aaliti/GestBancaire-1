@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts :: header"></head>
+
+<body>
+
+    <div class="container">
+        <h3>Liste des Comptes</h3>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th> Id </th>
+                <th> Nom </th>
+                <th> Historique </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="aCompte : ${comptesList}">
+                <td th:text="${aCompte.getId()}"/>
+                <td th:text="${aCompte.getNom()}"/>
+                <td>
+                    <a th:href="@{/${aCompte.id}+'/operations'}" class="btn btn-info btn-xs"> Historique </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
