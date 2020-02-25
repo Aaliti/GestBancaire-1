@@ -24,9 +24,9 @@ public class OperationController {
 
     @Autowired
     CompteService compServ;
+
     @Autowired
     OperationService operServ;
-
 
     @GetMapping("/comptes")
     public String listComptes(Model model) {
@@ -37,9 +37,9 @@ public class OperationController {
         return "comptes/list-comptes";
     }
 
-
     @GetMapping(path = "/{id}/operations")
     public String historiqueComptes(@PathVariable("id") long id, Model model) {
+
         model.addAttribute("nomCompte", compServ.getById(id).getNom());
         model.addAttribute("solde", operServ.getSolde(id));
         model.addAttribute("operations", operServ.getOperationsByCompte_Id(id));
@@ -48,36 +48,35 @@ public class OperationController {
     }
 
     @GetMapping("/{id}/transactions")
-    public String viewTransactions(@PathVariable("id") long id, Model model) {
+    public String viewTransactions(@PathVariable("id") long id, Model model /*, HttpSession session*/) {
+
         Operation newOp = new Operation();
 
-
-        model.addAttribute("id", id);
+        //session.setAttribute("id", id);
 
         model.addAttribute("nomCompte", compServ.getById(id).getNom());
         model.addAttribute("newOp", newOp);
-
 
         return "comptes/transactions";
     }
 
     @PostMapping("/operation/save")
-    public String doTransaction(Model model, Operation operation,@RequestParam("compteId") long id, @RequestParam("action") String radio) {
+    public String doTransaction(Model model, Operation operation, @RequestParam("compteId") long cpt_id, @RequestParam("action") String radio) /*HttpSession session,*/ {
 
-        operation.setCompte(compServ.getById(id));
+        //long id = (long) session.getAttribute("id");
 
+        operation.setCompte(compServ.getById(cpt_id));
+        //session.invalidate();
         if (radio.equals("Debit")) {
-            if (operation.getMontant() <= operServ.getSolde(id)) {
+            if (operation.getMontant() <= operServ.getSolde(cpt_id)) {
                 operation.setMontant(-operation.getMontant());
-                return "redirect:/" + id + "/transactions";
-
             } else {
-                return "redirect:/" + id + "/transactions";
+                return "redirect:/" + cpt_id + "/transactions";
             }
         }
 
         operServ.save(operation);
 
-        return "redirect:/" + id + "/operations";
+        return "redirect:/" + cpt_id + "/operations";
     }
 }
