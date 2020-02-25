@@ -50,7 +50,7 @@ public class OperationController {
         Operation newOp = new Operation();
 
 
-        session.setAttribute("id",id);
+        session.setAttribute("id", id);
 
         model.addAttribute("nomCompte", compServ.getById(id).getNom());
         model.addAttribute("newOp", newOp);
@@ -60,21 +60,22 @@ public class OperationController {
     }
 
     @PostMapping("/operation/save")
-    public String doTransaction(Model model, Operation operation,HttpSession session,@RequestParam("action")String radio) {
-        long id =(long)session.getAttribute("id");
+    public String doTransaction(Model model, Operation operation, HttpSession session, @RequestParam("action") String radio) {
+        long id = (long) session.getAttribute("id");
         operation.setCompte(compServ.getById(id));
         session.invalidate();
-        if (radio.equals("Debit")){
-            if (operation.getMontant()<=operServ.getSolde(id)){
+        if (radio.equals("Debit")) {
+            if (operation.getMontant() <= operServ.getSolde(id)) {
                 operation.setMontant(-operation.getMontant());
-            }else{
+                return "redirect:/" + id + "/transactions";
 
-                return "redirect:/"+id+"/transactions";
+            } else {
+                return "redirect:/" + id + "/transactions";
             }
         }
 
         operServ.save(operation);
 
-        return "redirect:/"+id+"/operations";
+        return "redirect:/" + id + "/operations";
     }
 }
