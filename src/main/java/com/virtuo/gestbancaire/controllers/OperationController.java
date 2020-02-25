@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -45,10 +46,11 @@ public class OperationController {
     }
 
     @GetMapping("/{id}/transactions")
-    public String viewTransactions(@PathVariable("id") long id, Model model) {
+    public String viewTransactions(@PathVariable("id") long id, Model model, HttpSession session) {
         Operation newOp = new Operation();
-        newOp.setCompte(compServ.getById(id));
 
+
+        session.setAttribute("id",id);
 
         model.addAttribute("nomCompte", compServ.getById(id).getNom());
         model.addAttribute("newOp", newOp);
@@ -58,8 +60,15 @@ public class OperationController {
     }
 
     @PostMapping("/operation/save")
-    public String doTransaction(Model model, Operation operation) {
+    public String doTransaction(Model model, Operation operation,HttpSession session,@RequestParam("action")String radio) {
+        long id =(long)session.getAttribute("id");
+        operation.setCompte(compServ.getById(id));
+        session.invalidate();
+        if (radio.equals("Debit")){
+            operation.setMontant(-operation.getMontant());
+        }
 
+        operServ.save(operation);
 
         return "redirect:/comptes";
     }

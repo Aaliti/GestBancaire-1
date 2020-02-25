@@ -13,8 +13,8 @@
         <label th:text="${nomCompte}"/>
         <input type="text" placeholder="Montant" th:field="${newOp.montant}"/>
         <label>Nature</label>
-        <input type="radio" name="action" value="Créditer"> <label>Créditer</label>
-        <input type="radio" name="action" value="Débiter"> <label>Débiter</label>
+        <input type="radio" name="action" value="Credit" checked> <label>Créditer</label>
+        <input type="radio" name="action" value="Debit"> <label>Débiter</label>
         <button type="submit">Valider</button>
 
     </form>
