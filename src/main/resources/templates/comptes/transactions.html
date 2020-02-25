@@ -11,8 +11,7 @@
     <form action="/operation/save" th:object="${newOp}" method="POST">
         <br><br>
         <label th:text="${nomCompte}"/>
-        <input type="hidden" name="compteId" th:value="${id}"/>
-        <input type="text" id="montant" placeholder="Montant" th:field="${newOp.montant}" />
+        <input type="text" placeholder="Montant" th:field="${newOp.montant}" onkeypress="validate(event)"/>
         <label>Nature</label>
         <input type="radio" name="action" value="Credit" checked> <label>Créditer</label>
         <input type="radio" name="action" value="Debit"> <label>Débiter</label>
@@ -22,25 +21,23 @@
 </div>
 
 <script>
-    function setInputFilter(textbox, inputFilter) {
-        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
-            textbox.addEventListener(event, function() {
-                if (inputFilter(this.value)) {
-                    this.oldValue = this.value;
-                    this.oldSelectionStart = this.selectionStart;
-                    this.oldSelectionEnd = this.selectionEnd;
-                } else if (this.hasOwnProperty("oldValue")) {
-                    this.value = this.oldValue;
-                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-                } else {
-                    this.value = "";
-                }
-            });
-        });
-    }
+    function validate(evt) {
+        var theEvent = evt || window.event;
 
-    setInputFilter(document.getElementById("montant"), function(value) {
-        return /^-?\d*[.,]?\d*$/.test(value); });
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+            // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
 </script>
 </body>
 </html>
