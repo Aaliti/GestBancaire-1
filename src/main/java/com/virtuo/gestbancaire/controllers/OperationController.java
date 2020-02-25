@@ -46,11 +46,11 @@ public class OperationController {
     }
 
     @GetMapping("/{id}/transactions")
-    public String viewTransactions(@PathVariable("id") long id, Model model, HttpSession session) {
+    public String viewTransactions(@PathVariable("id") long id, Model model) {
         Operation newOp = new Operation();
 
 
-        session.setAttribute("id", id);
+        model.addAttribute("id", id);
 
         model.addAttribute("nomCompte", compServ.getById(id).getNom());
         model.addAttribute("newOp", newOp);
@@ -60,10 +60,10 @@ public class OperationController {
     }
 
     @PostMapping("/operation/save")
-    public String doTransaction(Model model, Operation operation, HttpSession session, @RequestParam("action") String radio) {
-        long id = (long) session.getAttribute("id");
+    public String doTransaction(Model model, Operation operation,@RequestParam("compteId") long id, @RequestParam("action") String radio) {
+
         operation.setCompte(compServ.getById(id));
-        session.invalidate();
+
         if (radio.equals("Debit")) {
             if (operation.getMontant() <= operServ.getSolde(id)) {
                 operation.setMontant(-operation.getMontant());
