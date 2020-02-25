@@ -18,16 +18,15 @@ public interface OperationRepository extends PagingAndSortingRepository<Operatio
     @Override
     public List<Operation> findAll();
 
-
     @Override
     public Optional<Operation> findById(Long aLong);
 
     @Override
     Page<Operation> findAll(Pageable pageable);
 
-
     @Query(nativeQuery = true, value = "select SUM(montant) from operation where compte_id = ?1")
-    public double getSolde(Long id);
+    public Double getSolde(Long id);
 
-
+    @Query(nativeQuery = true, value = "select * from operation where compte_id = ?1")
+    public List<Operation> findByCompte_Id(Long id);
 }

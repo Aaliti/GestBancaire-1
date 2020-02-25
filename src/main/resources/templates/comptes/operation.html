@@ -5,21 +5,22 @@
 <body>
 
 <div class="container">
-    <h3>Solde</h3>
+    <h2 th:text="'Les Opération de '+${nomCompte}"></h2>
+    <h3 th:text="'Son Solde est '+${solde}"></h3>
 
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
             <th> Id </th>
-            <th> Nom </th>
-            <th> solde </th>
+            <th> Montant </th>
+            <th> Date </th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td th:text="${compte.getId()}"/>
-            <td th:text="${compte.getNom()}"/>
-            <td th:text="${solde}"/>
+        <tr th:each="operation : ${operations}">
+            <td th:text="${operation.getId()}"/>
+            <td th:text="${operation.getMontant()}"/>
+            <td th:text="${operation.getDate()}"/>
 
         </tr>
         </tbody>

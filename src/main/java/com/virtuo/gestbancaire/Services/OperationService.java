@@ -15,33 +15,39 @@ public class OperationService {
     @Autowired
     OperationRepository operRepo;
 
-    public Operation save(Operation operation){
+    public Operation save(Operation operation) {
         return operRepo.save(operation);
     }
 
-    public List<Operation> getAll(){
+    public List<Operation> getAll() {
         return operRepo.findAll();
     }
 
 
-
-    public Operation getById(Long id){
+    public Operation getById(Long id) {
         return operRepo.findById(id).get();
     }
 
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         operRepo.deleteById(id);
     }
 
-    public Page<Operation> getAll(Pageable pageable){
+    public Page<Operation> getAll(Pageable pageable) {
         return operRepo.findAll(pageable);
     }
 
-    public double getSolde(Long id ){
-        return operRepo.getSolde(id);
+    public Double getSolde(Long id) {
+        if (operRepo.getSolde(id) == null) {
+            return new Double(0.0);
+        } else {
+            return operRepo.getSolde(id);
+        }
     }
 
+    public List<Operation> getOperationsByCompte_Id(Long id) {
+        return operRepo.findByCompte_Id(id);
+    }
 
 
 }
