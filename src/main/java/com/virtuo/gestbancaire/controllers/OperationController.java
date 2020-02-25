@@ -65,11 +65,16 @@ public class OperationController {
         operation.setCompte(compServ.getById(id));
         session.invalidate();
         if (radio.equals("Debit")){
-            operation.setMontant(-operation.getMontant());
+            if (operation.getMontant()<=operServ.getSolde(id)){
+                operation.setMontant(-operation.getMontant());
+            }else{
+
+                return "redirect:/"+id+"/transactions";
+            }
         }
 
         operServ.save(operation);
 
-        return "redirect:/comptes";
+        return "redirect:/"+id+"/operations";
     }
 }
