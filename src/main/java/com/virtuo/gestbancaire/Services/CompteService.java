@@ -23,11 +23,9 @@ public class CompteService {
         return compRepo.findAll();
     }
 
-
     public Compte getById(Long id) {
         return compRepo.findById(id).get();
     }
-
 
     public void deleteById(Long id) {
         compRepo.deleteById(id);
