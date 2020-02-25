@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts :: header"></head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h2>Nouvelle Transaction</h2>
+
+    <form action="/operation/save" th:object="${newOp}" method="POST">
+        <br><br>
+        <label th:text="${nomCompte}"/>
+        <input type="text" placeholder="Montant" th:field="${newOp.montant}"/>
+        <label>Nature</label>
+        <input type="radio" name="action" value="Créditer"> <label>Créditer</label>
+        <input type="radio" name="action" value="Débiter"> <label>Débiter</label>
+        <button type="submit">Valider</button>
+
+    </form>
+</div>
+</body>
+</html>
