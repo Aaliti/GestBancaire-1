@@ -1,4 +1,4 @@
-package com.virtuo.gestbancaire.DAO;
+package com.virtuo.gestbancaire.dao;
 
 import com.virtuo.gestbancaire.entities.Operation;
 import org.springframework.data.domain.Page;
@@ -15,7 +15,6 @@ public interface OperationRepository extends PagingAndSortingRepository<Operatio
 
     @Override
     public List<Operation> findAll();
-
 
 
     @Override

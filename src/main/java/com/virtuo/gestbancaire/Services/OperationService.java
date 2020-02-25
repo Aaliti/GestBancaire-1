@@ -1,6 +1,6 @@
 package com.virtuo.gestbancaire.Services;
 
-import com.virtuo.gestbancaire.DAO.OperationRepository;
+import com.virtuo.gestbancaire.dao.OperationRepository;
 import com.virtuo.gestbancaire.entities.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package com.virtuo.gestbancaire.DAO;
+package com.virtuo.gestbancaire.dao;
 
 import com.virtuo.gestbancaire.entities.Compte;
 import org.springframework.data.domain.Page;
