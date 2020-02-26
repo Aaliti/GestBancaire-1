@@ -22,8 +22,12 @@
     </div>
     <div class="col">
         <label for="exampleFormControlSelect1">Select Compte</label>
-        <select th:each="dataList: ${tabledata}" class="form-control" id="exampleFormControlSelect1">
+       <!-- <select th:each="dataList: ${abledata}" class="form-control" id="exampleFormControlSelect1">
         <option th:text="*{__${dataList}__.id}"></option>
+        </select>-->
+
+        <select class="form-control" id="exampleFormControlSelect1">
+        <option th:each="dataList: ${tabledata}" th:text="*{dataList.id}"></option>
         </select>
     </div>
     <div class="col">

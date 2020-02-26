@@ -15,6 +15,7 @@
         <label th:text="${nomCompte}"/>
         <input type="hidden" name="compteId" th:value="${id}"/>
         <input type="text" id="montant" placeholder="Montant" th:field="${newOp.montant}"/>
+        <span class="alert-danger" th:errors="${newOp.montant}"></span>
         <label>Nature</label>
         <input type="radio" name="action" value="Credit" checked> <label>Créditer</label>
         <input type="radio" name="action" value="Debit"> <label>Débiter</label>
