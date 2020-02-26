@@ -54,4 +54,8 @@ public class OperationService {
     public List<CompteSolde> getComptesSoldes() {
         return operRepo.getComptesSoldes();
     }
+
+    /*public CompteSolde getCompteSolde(Long id) {
+        return operRepo.getCompteSolde(id);
+    }*/
 }

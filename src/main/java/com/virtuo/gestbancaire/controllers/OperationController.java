@@ -4,15 +4,14 @@ package com.virtuo.gestbancaire.controllers;
 import com.virtuo.gestbancaire.Services.CompteService;
 import com.virtuo.gestbancaire.Services.OperationService;
 import com.virtuo.gestbancaire.dto.CompteSolde;
+import com.virtuo.gestbancaire.entities.Compte;
 import com.virtuo.gestbancaire.entities.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -53,7 +52,7 @@ public class OperationController {
 
         model.addAttribute("nomCompte", compServ.getById(id).getNom());
         model.addAttribute("newOp", newOp);
-        model.addAttribute("listeComptes", compServ.getAll());
+        model.addAttribute("listeComptes", operServ.getComptesSoldes());
         System.out.println(compServ.getAll());
 
         return "comptes/transactions";
@@ -77,5 +76,14 @@ public class OperationController {
         operServ.save(operation);
 
         return "redirect:/" + cpt_id + "/operations";
+    }
+
+    @PostMapping("/formResult")
+    @ResponseBody
+    public HashMap<String,String> result(@RequestParam("id")long id){
+        HashMap<String,String> map=new HashMap<>();
+        map.put("nom",compServ.getById(id).getNom());
+        map.put("solde",operServ.getSolde(id).toString());
+        return map;
     }
 }

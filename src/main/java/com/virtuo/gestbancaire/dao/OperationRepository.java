@@ -34,4 +34,9 @@ public interface OperationRepository extends PagingAndSortingRepository<Operatio
             "FROM compte c left join operation o ON c.compte_id=o.compte_id " +
             "GROUP BY c.compte_id, c.nom ORDER BY 1 ASC")
     public List<CompteSolde> getComptesSoldes();
+
+    /*@Query(nativeQuery = true, value = "select c.compte_id as compteId, c.nom as nom, COALESCE(SUM(o.montant),0)as solde " +
+            "FROM compte c left join operation o ON c.compte_id=o.compte_id where c.compte_id = ?1" +
+            "GROUP BY c.compte_id, c.nom ORDER BY 1 ASC")
+    public CompteSolde getCompteSolde(Long id);*/
 }
