@@ -13,6 +13,7 @@
         <br><br>
         <label th:text="${nomCompte}"/>
         <input type="hidden" name="compteId" th:value="${id}"/>
+        <input type="hidden" name="soldeCompte" placeholder="SoldeCompte" th:value="${soldeCompte}"/>
         <input type="text" id="montant" placeholder="Montant" th:field="${newOp.montant}"/>
         <span class="alert-danger" th:errors="${newOp.montant}"></span>
         <label>Nature</label>
@@ -26,18 +27,37 @@
 <script>
     function setInputFilter(textbox, inputFilter) {
         $('button').attr("disabled","disabled");
+        var solde = parseFloat('[[${soldeCompte}]]');
+        console.log(solde);
+
         ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
             textbox.addEventListener(event, function () {
-                if (inputFilter(this.value)) {
+
+                if (inputFilter(this.value) ) {
                     this.oldValue = this.value;
                     this.oldSelectionStart = this.selectionStart;
                     this.oldSelectionEnd = this.selectionEnd;
-                    var validate=this.value;
-                    if (validate.length===0){
-                        $('button').attr("disabled","disabled");
-                    }else{
-                        $('button').removeAttr("disabled");
-                    }
+                    var validate;
+                    if (this.value==='')
+                        validate=0;
+                    else
+                        validate=parseFloat(this.value);
+
+
+                    
+                        if (validate ===0 ){
+                            $('button').attr("disabled","disabled");
+
+                        }else if(validate!=0 ){
+                            $('button').removeAttr("disabled");
+                        }else {
+                            $('button').attr("disabled","disabled");
+                        }
+
+
+
+
+
                 } else if (this.hasOwnProperty("oldValue")) {
                     this.value = this.oldValue;
                     this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
