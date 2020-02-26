@@ -8,7 +8,6 @@
 <div class="container">
     <h2>Nouvelle Transaction</h2>
 
-    <div th:replace="layouts :: frag_transfert(duAu='Du', tabledata=${listeComptes})"></div>
 
     <form action="/operation/save" th:object="${newOp}" method="POST">
         <br><br>
@@ -26,12 +25,19 @@
 
 <script>
     function setInputFilter(textbox, inputFilter) {
+        $('button').attr("disabled","disabled");
         ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
             textbox.addEventListener(event, function () {
                 if (inputFilter(this.value)) {
                     this.oldValue = this.value;
                     this.oldSelectionStart = this.selectionStart;
                     this.oldSelectionEnd = this.selectionEnd;
+                    var validate=this.value;
+                    if (validate.length===0){
+                        $('button').attr("disabled","disabled");
+                    }else{
+                        $('button').removeAttr("disabled");
+                    }
                 } else if (this.hasOwnProperty("oldValue")) {
                     this.value = this.oldValue;
                     this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);

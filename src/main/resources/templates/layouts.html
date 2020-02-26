@@ -17,49 +17,55 @@
 </head>
 
 <div th:fragment="frag_transfert(duAu, tabledata)" class="form-row">
-    <div class="">
-        <p th:text="${duAu}"></p>
-    </div>
+
+    <p th:text="${duAu}"></p>
+
     <div class="col">
-        <label for="Select1">Select Compte</label>
+        <label>Select Compte</label>
+
         <!-- <select th:each="dataList: ${abledata}" class="form-control" id="exampleFormControlSelect1">
          <option th:text="*{__${dataList}__.id}"></option>
          </select>-->
 
-        <select class="form-control Select1" id="Select1">
+        <select class="form-control" th:id="'Select'+${duAu}">
             <option value="0">Select Compte</option>
             <option th:each="dataList: ${tabledata}" th:text="*{dataList.compteId}"
                     th:value="*{dataList.compteId}"></option>
+
         </select>
     </div>
     <div class="col">
-        <label for="nom">Nom Compte</label>
-        <input disabled type="text" class="form-control" id="nom">
+        <label>Nom Compte</label>
+        <input disabled type="text" class="form-control nom" th:id="'nom'+${duAu}">
     </div>
     <div class="col">
-        <label for="solde">Solde Compte</label>
-        <input disabled type="text" class="form-control" id="solde">
+        <label>Solde Compte</label>
+        <input disabled type="text" class="form-control solde" th:id="'solde'+${duAu}">
     </div>
     <script>
-        $('.Select1').change(function () {
+
+        $('#Select[[${duAu}]]').change(function () {
+
             var idValue = $(this).children(":selected").attr('value');
+
             if (idValue != 0) {
                 $.ajax({
                     url: "/formResult",
                     type: "POST",
                     data: {
                         id: idValue
+
                     },
                     success: function (result) {
-                        $('#nom').val(result['nom']);
-                        $('#solde').val(result['solde']);
+                        $('#nom[[${duAu}]]').val(result['nom']);
+                        $('#solde[[${duAu}]]').val(result['solde']);
                     }
                 });
                 /*$('#nom').val(idValue);
                 $('#solde').val(idValue);*/
             } else {
-                $('#nom').val("");
-                $('#solde').val("");
+                $('#nom[[${duAu}]]').val("");
+                $('#solde[[${duAu}]]').val("");
             }
 
         });

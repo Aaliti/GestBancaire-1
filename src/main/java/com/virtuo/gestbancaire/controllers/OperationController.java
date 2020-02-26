@@ -78,6 +78,14 @@ public class OperationController {
         return "redirect:/" + cpt_id + "/operations";
     }
 
+    @GetMapping("/operation/virement")
+    public String doVirement(Model model ) {
+
+        model.addAttribute("listeComptes", operServ.getComptesSoldes());
+        System.out.println(compServ.getAll());
+        return "comptes/virement";
+    }
+
     @PostMapping("/formResult")
     @ResponseBody
     public HashMap<String,String> result(@RequestParam("id")long id){
