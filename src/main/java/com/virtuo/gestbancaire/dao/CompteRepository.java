@@ -15,9 +15,8 @@ public interface CompteRepository extends PagingAndSortingRepository<Compte, Lon
     @Override
     public List<Compte> findAll();
 
-
     @Override
-    public Optional<Compte> findById(Long aLong);
+    Optional<Compte> findById(Long aLong);
 
     @Override
     Page<Compte> findAll(Pageable pageable);

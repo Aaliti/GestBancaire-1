@@ -15,11 +15,10 @@ public class Operation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "operation_seq")
     private long id;
 
-    @NotEmpty
     @NotNull
     private double montant;
 
-    private Date date=new Date();
+    private Date date = new Date();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "compte_id")

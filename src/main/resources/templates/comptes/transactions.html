@@ -8,6 +8,8 @@
 <div class="container">
     <h2>Nouvelle Transaction</h2>
 
+    <div th:replace="layouts :: frag_transfert(duAu='Du', tabledata=${listeComptes})"></div>
+
     <form action="/operation/save" th:object="${newOp}" method="POST">
         <br><br>
         <label th:text="${nomCompte}"/>

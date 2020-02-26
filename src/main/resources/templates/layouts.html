@@ -11,10 +11,29 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" th:href="@{/css/formatting.css}" >
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!--    <link rel="stylesheet" th:href="@{/css/formatting.css}" >-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>-->
     <title>Gestion Bancaire</title>
 </head>
 
+<div th:fragment="frag_transfert(duAu, tabledata)" class="form-row">
+    <div class="">
+        <p th:text="${duAu}"></p>
+    </div>
+    <div class="col">
+        <label for="exampleFormControlSelect1">Select Compte</label>
+        <select th:each="dataList: ${tabledata}" class="form-control" id="exampleFormControlSelect1">
+        <option th:text="*{__${dataList}__.id}"></option>
+        </select>
+    </div>
+    <div class="col">
+        <label for="exampleFormControl1">Nom Compte</label>
+        <input disabled type="text" class="form-control" id="exampleFormControl1">
+    </div>
+    <div class="col">
+        <label for="exampleFormControl2">Solde Compte</label>
+        <input disabled type="text" class="form-control" id="exampleFormControl2">
+    </div>
+</div>
 
 </html>

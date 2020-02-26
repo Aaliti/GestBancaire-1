@@ -51,7 +51,7 @@ public class OperationService {
     }
 
 
-    public List<CompteSolde> getCompteSolde(){
-        return operRepo.getCompteSolde();
+    public List<CompteSolde> getComptesSoldes() {
+        return operRepo.getComptesSoldes();
     }
 }

@@ -30,8 +30,8 @@ public interface OperationRepository extends PagingAndSortingRepository<Operatio
     @Query(nativeQuery = true, value = "select * from operation where compte_id = ?1")
     public List<Operation> findByCompte_Id(Long id);
 
-    @Query(nativeQuery = true, value = "select c.compte_id as compteId, c.nom as nom,  COALESCE(SUM(o.montant),0)as solde " +
+    @Query(nativeQuery = true, value = "select c.compte_id as compteId, c.nom as nom, COALESCE(SUM(o.montant),0)as solde " +
             "FROM compte c left join operation o ON c.compte_id=o.compte_id " +
             "GROUP BY c.compte_id, c.nom ORDER BY 1 ASC")
-    public List<CompteSolde> getCompteSolde();
+    public List<CompteSolde> getComptesSoldes();
 }

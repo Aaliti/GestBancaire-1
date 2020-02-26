@@ -4,7 +4,6 @@ package com.virtuo.gestbancaire.controllers;
 import com.virtuo.gestbancaire.Services.CompteService;
 import com.virtuo.gestbancaire.Services.OperationService;
 import com.virtuo.gestbancaire.dto.CompteSolde;
-import com.virtuo.gestbancaire.entities.Compte;
 import com.virtuo.gestbancaire.entities.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -32,7 +29,7 @@ public class OperationController {
     public String listComptes(Model model) {
 
         //List<Compte> comptes = compServ.getAll();
-        List<CompteSolde> comptesSolde = operServ.getCompteSolde();
+        List<CompteSolde> comptesSolde = operServ.getComptesSoldes();
         model.addAttribute("comptesList", comptesSolde);
         return "comptes/list-comptes";
     }
@@ -47,7 +44,7 @@ public class OperationController {
         return "comptes/operations";
     }
 
-    @GetMapping("/{id}/transactions")
+    @GetMapping("/{id}/transaction")
     public String viewTransactions(@PathVariable("id") long id, Model model /*, HttpSession session*/) {
 
         Operation newOp = new Operation();
@@ -56,6 +53,8 @@ public class OperationController {
 
         model.addAttribute("nomCompte", compServ.getById(id).getNom());
         model.addAttribute("newOp", newOp);
+        model.addAttribute("listeComptes", compServ.getAll());
+        System.out.println(compServ.getAll());
 
         return "comptes/transactions";
     }
