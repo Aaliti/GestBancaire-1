@@ -20,8 +20,8 @@
         <input type="radio" name="action" value="Credit" checked> <label>Créditer</label>
         <input type="radio" name="action" value="Debit"> <label>Débiter</label>
         <button type="submit">Valider</button>
-        <label style="visibility:hidden" th:name="error" id="error">Veuillez saisir un montant qui ne depasse pas votre
-            solde"</label>
+        <label th:name="error" id="error" style="display: none" class="alert alert-danger">Veuillez saisir un montant qui ne depasse pas votre solde</label>
+
 
     </form>
 </div>
@@ -30,7 +30,7 @@
     function setInputFilter(textbox, inputFilter) {
         $('button').attr("disabled", "disabled");
         var solde = parseFloat('[[${soldeCompte}]]');
-        console.log(solde);
+        //console.log(solde);
 
         ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
             textbox.addEventListener(event, function () {
@@ -40,26 +40,32 @@
                     this.oldSelectionStart = this.selectionStart;
                     this.oldSelectionEnd = this.selectionEnd;
                     var validate;
-                    if (this.value === '')
+                    if (this.value === ''||this.value==='.')
                         validate = 0;
                     else
                         validate = parseFloat(this.value);
 
 
-                    /* if (validate === 0 || solde < validate){
-                         $('button').attr("disabled","disabled");
+                    /* if (validate ===0 ){
+                            $('button').attr("disabled","disabled");
 
-                     }else if(validate!=0 && solde>= validate){
-                         $('button').removeAttr("disabled");
-                     }else {
-                         $('button').attr("disabled","disabled");
-                     }*/
-                    console.log(document.theForm.action.value);
+                        }else if(validate!=0 ){
+                            $('button').removeAttr("disabled");
+                        }else {
+                            $('button').attr("disabled","disabled");
+                        }
+*/
+                    //console.log(document.theForm.action.value);
 
                     if (validate === 0 || ((solde < validate) && (document.theForm.action.value === "Debit"))) {
                         $('button').attr("disabled", "disabled");
+                        if((solde < validate) && (document.theForm.action.value === "Debit")){
+                            document.getElementById("error").style.display = 'inline';
+                        }
+
                     } else if ((validate != 0 && solde >= validate) || (document.theForm.action.value === "Credit")) {
                         $('button').removeAttr("disabled");
+                        document.getElementById("error").style.display = 'none';
                     }/* else {
                         $('button').attr("disabled", "disabled");
                     }*/
@@ -77,7 +83,7 @@
     }
 
     setInputFilter(document.getElementById("montant"), function (value) {
-        return /^-?\d*[.,]?\d*$/.test(value);
+        return /^\d*[.]?\d*$/.test(value);
     });
 </script>
 </body>
