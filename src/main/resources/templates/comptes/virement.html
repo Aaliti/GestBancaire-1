@@ -10,7 +10,19 @@
 
     <div th:replace="layouts :: frag_transfert(duAu='Du', tabledata=${listeComptes})"></div>
     <div th:replace="layouts :: frag_transfert(duAu='Au', tabledata=${listeComptes})"></div>
-
+    <br></br>
+    <div class="form-row">
+        <div class="col"></div>
+        <div class="col">
+            <input type="text" id="montant" placeholder="Montant" class="form-control"/>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-info">Valider</button>
+        </div>
+        <div class="col"></div>
+        <label th:name="error" id="error" style="display: none" class="alert alert-danger">Veuillez saisir un montant
+            qui ne depasse pas votre solde</label>
+    </div>
 </div>
 </body>
 </html>

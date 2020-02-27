@@ -15,11 +15,10 @@
         <input type="hidden" name="compteId" th:value="${id}"/>
         <input type="hidden" name="soldeCompte" placeholder="SoldeCompte" th:value="${soldeCompte}"/>
         <input type="text" id="montant" placeholder="Montant" th:field="${newOp.montant}"/>
-        <span class="alert-danger" th:errors="${newOp.montant}"></span>
         <label>Nature</label>
         <input type="radio" name="action" value="Credit" checked> <label>Créditer</label>
         <input type="radio" name="action" value="Debit"> <label>Débiter</label>
-        <button type="submit">Valider</button>
+        <button type="submit" class="btn btn-info">Valider</button>
         <label th:name="error" id="error" style="display: none" class="alert alert-danger">Veuillez saisir un montant qui ne depasse pas votre solde</label>
 
 
