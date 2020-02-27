@@ -1,15 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layouts :: header"></head>
-<meta charset="UTF-8">
-<title>Title</title>
-</head>
+
 <body>
 <div class="container">
     <h2>Nouveau Virement</h2>
 
     <div th:replace="layouts :: frag_transfert(duAu='Du', tabledata=${listeComptes})"></div>
     <div th:replace="layouts :: frag_transfert(duAu='Au', tabledata=${listeComptes})"></div>
+    <br>
+    <div class="form-row">
+        <div class="col"></div>
+        <div class="col">
+            <input type="text" id="montant" placeholder="Montant" class="form-control"/>
+        </div>
+
+        <div class="col">
+            <button type="submit" id="go" class="btn btn-success">Valider</button>
+        </div>
+
+        <div class="col"></div>
+        <label th:name="error" id="error" style="display: none"
+               class="alert alert-danger">
+        </label>
+    </div>
 </div>
+<script type="text/javascript" th:src="@{/inputFilter_vir.js}"></script>
+<script>
+    setInputFilter(document.getElementById("montant"), function (value) {
+        return /^\d*[.]?\d*$/.test(value);
+    });
+    /*function setInputFilter() {
+        //$('button').attr("disabled", "disabled");
+        //$('#Select[[${duAu}]]').change(function () {
+        $('#SelectDu').change(function () {
+            var idValue = $(this).children(":selected").attr('value');
+            console.log(idValue);
+            /!*var yoursolde = $('#soldeDu').val();
+            console.log("value yoursolde: " + yoursolde);*!/
+        });
+        // document.getElementById("error").innerText += solde;
+        // $('button#go').css('background', 'green');
+    };
+    setInputFilter();*/
+
+</script>
 </body>
 </html>

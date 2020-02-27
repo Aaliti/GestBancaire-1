@@ -51,7 +51,7 @@ public class OperationController {
 
         model.addAttribute("nomCompte", compServ.getById(id).getNom());
         model.addAttribute("newOp", newOp);
-        model.addAttribute("soldeCompte", operServ.getSolde(id) );
+        model.addAttribute("soldeCompte", operServ.getSolde(id));
         model.addAttribute("listeComptes", operServ.getComptesSoldes());
 
         System.out.println(compServ.getAll());

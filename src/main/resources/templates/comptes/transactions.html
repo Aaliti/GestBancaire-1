@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layouts :: header"></head>
-<meta charset="UTF-8">
-<title>Title</title>
-</head>
+
 <body>
 <div class="container">
     <h2>Nouvelle Transaction</h2>
@@ -13,65 +11,20 @@
         <br><br>
         <label th:text="${nomCompte}"/>
         <input type="hidden" name="compteId" th:value="${id}"/>
-        <input type="hidden" id="balance" name="soldeCompte" placeholder="SoldeCompte" th:value="${soldeCompte}"/>
+        <input type="hidden" id="soldeDu" name="soldeCompte" placeholder="SoldeCompte" th:value="${soldeCompte}"/>
         <input type="text" id="montant" placeholder="Montant" th:field="${newOp.montant}"/>
         <span class="alert-danger" th:errors="${newOp.montant}"></span>
         <label>Nature</label>
         <input type="radio" name="action" value="Credit" checked> <label>Créditer</label>
         <input type="radio" name="action" value="Debit"> <label>Débiter</label>
-        <button type="submit">Valider</button>
+        <button type="submit" id="go" class="btn btn-primary">Valider</button>
         <label th:name="error" id="error" style="display: none"
                class="alert alert-danger">Veuillez saisir un montant qui ne depasse pas votre solde:
         </label>
     </form>
 </div>
-
+<script type="text/javascript" th:src="@{/inputFilter.js}"></script>
 <script>
-    function setInputFilter(textbox, inputFilter) {
-        $('button').attr("disabled", "disabled");
-        //var solde = parseFloat('[[${soldeCompte}]]');
-        solde = +document.getElementById("balance").value;
-        console.log(typeof solde + ": " + solde);
-        document.getElementById("error").innerText += solde;
-
-        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
-            textbox.addEventListener(event, function () {
-
-                if (inputFilter(this.value)) {
-                    this.oldValue = this.value;
-                    this.oldSelectionStart = this.selectionStart;
-                    this.oldSelectionEnd = this.selectionEnd;
-                    var validate;
-                    if (this.value === '' || this.value === '.')
-                        validate = 0;
-                    else
-                        validate = parseFloat(this.value);
-
-                    //console.log(document.theForm.action.value);
-
-                    if (validate === 0 || ((solde < validate) && (document.theForm.action.value === "Debit"))) {
-                        $('button').attr("disabled", "disabled");
-                        if ((solde < validate) && (document.theForm.action.value === "Debit")) {
-                            document.getElementById("error").style.display = 'inline-block';
-                            //$('label#error').css('background', 'red');
-                        }
-
-                    } else if ((validate != 0 && solde >= validate) || (document.theForm.action.value === "Credit")) {
-                        $('button').removeAttr("disabled");
-                        document.getElementById("error").style.display = 'none';
-                    }
-
-                } else if (this.hasOwnProperty("oldValue")) {
-                    this.value = this.oldValue;
-                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-                } else {
-                    this.value = "";
-                }
-            });
-        });
-
-    }
-
     setInputFilter(document.getElementById("montant"), function (value) {
         return /^\d*[.]?\d*$/.test(value);
     });
