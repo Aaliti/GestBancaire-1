@@ -9,7 +9,7 @@
     <h2>Nouvelle Transaction</h2>
 
 
-    <form action="/operation/save" th:object="${newOp}" method="POST">
+    <form action="/operation/save" th:object="${newOp}" name="theForm" method="POST">
         <br><br>
         <label th:text="${nomCompte}"/>
         <input type="hidden" name="compteId" th:value="${id}"/>
@@ -20,42 +20,49 @@
         <input type="radio" name="action" value="Credit" checked> <label>Créditer</label>
         <input type="radio" name="action" value="Debit"> <label>Débiter</label>
         <button type="submit">Valider</button>
+        <label style="visibility:hidden" th:name="error" id="error">Veuillez saisir un montant qui ne depasse pas votre
+            solde"</label>
 
     </form>
 </div>
 
 <script>
     function setInputFilter(textbox, inputFilter) {
-        $('button').attr("disabled","disabled");
+        $('button').attr("disabled", "disabled");
         var solde = parseFloat('[[${soldeCompte}]]');
         console.log(solde);
 
         ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
             textbox.addEventListener(event, function () {
 
-                if (inputFilter(this.value) ) {
+                if (inputFilter(this.value)) {
                     this.oldValue = this.value;
                     this.oldSelectionStart = this.selectionStart;
                     this.oldSelectionEnd = this.selectionEnd;
                     var validate;
-                    if (this.value==='')
-                        validate=0;
+                    if (this.value === '')
+                        validate = 0;
                     else
-                        validate=parseFloat(this.value);
+                        validate = parseFloat(this.value);
 
 
-                    
-                        if (validate ===0 ){
-                            $('button').attr("disabled","disabled");
+                    /* if (validate === 0 || solde < validate){
+                         $('button').attr("disabled","disabled");
 
-                        }else if(validate!=0 ){
-                            $('button').removeAttr("disabled");
-                        }else {
-                            $('button').attr("disabled","disabled");
-                        }
+                     }else if(validate!=0 && solde>= validate){
+                         $('button').removeAttr("disabled");
+                     }else {
+                         $('button').attr("disabled","disabled");
+                     }*/
+                    console.log(document.theForm.action.value);
 
-
-
+                    if (validate === 0 || ((solde < validate) && (document.theForm.action.value === "Debit"))) {
+                        $('button').attr("disabled", "disabled");
+                    } else if ((validate != 0 && solde >= validate) || (document.theForm.action.value === "Credit")) {
+                        $('button').removeAttr("disabled");
+                    }/* else {
+                        $('button').attr("disabled", "disabled");
+                    }*/
 
 
                 } else if (this.hasOwnProperty("oldValue")) {
