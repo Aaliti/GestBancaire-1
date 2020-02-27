@@ -1,6 +1,5 @@
 package com.virtuo.gestbancaire.controllers;
 
-
 import com.virtuo.gestbancaire.Services.CompteService;
 import com.virtuo.gestbancaire.Services.OperationService;
 import com.virtuo.gestbancaire.dto.CompteSolde;
@@ -71,7 +70,7 @@ public class OperationController {
             if (operation.getMontant() <= operServ.getSolde(cpt_id)) {
                 operation.setMontant(-operation.getMontant());
             } else {
-                return "redirect:/" + cpt_id + "/transactions";
+                return "redirect:/" + cpt_id + "/transaction";
             }
         }
 
@@ -81,7 +80,7 @@ public class OperationController {
     }
 
     @GetMapping("/operation/virement")
-    public String doVirement(Model model ) {
+    public String doVirement(Model model) {
 
         model.addAttribute("listeComptes", operServ.getComptesSoldes());
         System.out.println(compServ.getAll());
@@ -90,10 +89,10 @@ public class OperationController {
 
     @PostMapping("/formResult")
     @ResponseBody
-    public HashMap<String,String> result(@RequestParam("id")long id){
-        HashMap<String,String> map=new HashMap<>();
-        map.put("nom",compServ.getById(id).getNom());
-        map.put("solde",operServ.getSolde(id).toString());
+    public HashMap<String, String> result(@RequestParam("id") long id) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("nom", compServ.getById(id).getNom());
+        map.put("solde", operServ.getSolde(id).toString());
         return map;
     }
 }

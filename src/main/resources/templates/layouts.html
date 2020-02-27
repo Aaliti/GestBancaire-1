@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="header">
 
 
@@ -12,28 +12,25 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--    <link rel="stylesheet" th:href="@{/css/formatting.css}" >-->
-    <!--    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>-->
     <title>Gestion Bancaire</title>
 </head>
 
 <div th:fragment="frag_transfert(duAu, tabledata)" class="form-row">
-
     <p th:text="${duAu}"></p>
 
     <div class="col">
         <label>Select Compte</label>
-
-        <!-- <select th:each="dataList: ${abledata}" class="form-control" id="exampleFormControlSelect1">
-         <option th:text="*{__${dataList}__.id}"></option>
-         </select>-->
+        <!--<select th:each="dataList: ${abledata}" class="form-control" id="exampleFormControlSelect1">
+            <option th:text="*{__${dataList}__.id}"></option>
+        </select>-->
 
         <select class="form-control" th:id="'Select'+${duAu}">
             <option value="0">Select Compte</option>
             <option th:each="dataList: ${tabledata}" th:text="*{dataList.compteId}"
                     th:value="*{dataList.compteId}"></option>
-
         </select>
     </div>
+
     <div class="col">
         <label>Nom Compte</label>
         <input disabled type="text" class="form-control nom" th:id="'nom'+${duAu}">
@@ -45,7 +42,6 @@
     <script>
 
         $('#Select[[${duAu}]]').change(function () {
-
             var idValue = $(this).children(":selected").attr('value');
 
             if (idValue != 0) {
@@ -54,10 +50,9 @@
                     type: "POST",
                     data: {
                         id: idValue
-
                     },
                     success: function (result) {
-                        $('#nom[[${duAu}]]').val(result['nom']);
+                        $('#nom[[ ${duAu}]]').val(result['nom']);
                         $('#solde[[${duAu}]]').val(result['solde']);
                     }
                 });
@@ -65,7 +60,7 @@
                 $('#solde').val(idValue);*/
             } else {
                 $('#nom[[${duAu}]]').val("");
-                $('#solde[[${duAu}]]').val("");
+                $('#solde[[${duAu}]]').val("")
             }
 
         });
