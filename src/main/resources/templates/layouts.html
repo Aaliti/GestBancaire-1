@@ -55,8 +55,9 @@
                     success: function (result) {
                         $('#nom[[ ${duAu}]]').val(result['nom']);
                         $('#solde[[${duAu}]]').val(result['solde']);
-                        var yoursolde = document.getElementById("solde[[${duAu}]]").value;
-                        console.log("value yoursolde: " + yoursolde);
+                        /*var yoursolde = document.getElementById("solde[[${duAu}]]").value;
+                        console.log("value yoursolde: " + yoursolde);*/
+                        soldeValid();
                     }
                 });
                 console.log("after ajax");

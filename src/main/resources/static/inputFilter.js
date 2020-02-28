@@ -2,7 +2,7 @@ function setInputFilter(textbox, inputFilter) {
     $('button').attr("disabled", "disabled");
     //var solde = [[${soldeCompte}]];
     solde = +document.getElementById("soldeDu").value;
-    console.log(typeof solde + ": " + solde);
+    //console.log(typeof solde + ": " + solde);
     document.getElementById("error").innerText += solde;
     $('button#go').css('background', 'green');
 

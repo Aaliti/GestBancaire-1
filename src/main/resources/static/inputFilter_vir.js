@@ -28,8 +28,14 @@ function setInputFilter(textbox, inputFilter) {
 
 function soldeValid() {
     var solde = +document.getElementById("soldeDu").value;
-    console.log(typeof solde + ": " + solde);
+    var message='';
+    //console.log(typeof solde + ": " + solde);
     //document.getElementById("error").innerText;
+
+    if ($('#soldeDu').val().length > 0)
+        message='Veuillez saisir un montant qui ne depasse pas votre solde: '+ solde;
+    else
+        message='Veuillez saisir un Compte';
 
     var validate;
     if ($('#montant').val() === '' || $('#montant').val() === '.')
@@ -43,13 +49,12 @@ function soldeValid() {
         $('button').attr("disabled", "disabled");
         if (solde < validate) {
             document.getElementById("error").style.display = 'inline-block';
-            document.getElementById("error").innerHTML = 'Veuillez saisir un montant qui ne depasse pas votre solde: '
-                + solde;
+            document.getElementById("error").innerHTML = message;
             // $('label#error').css('background', 'red');
         }
 
-    } else if (validate != 0 && solde >= validate) {
+    } else if (validate != 0 && solde >= validate && $('#soldeAu').val().length > 0) {
         $('button').removeAttr("disabled");
-        //document.getElementById("error").style.display = 'none';
+        document.getElementById("error").style.display = 'none';
     }
 }
