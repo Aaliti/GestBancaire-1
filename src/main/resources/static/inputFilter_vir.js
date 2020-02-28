@@ -28,14 +28,14 @@ function setInputFilter(textbox, inputFilter) {
 
 function soldeValid() {
     var solde = +document.getElementById("soldeDu").value;
-    var message='';
+    var message = '';
     //console.log(typeof solde + ": " + solde);
     //document.getElementById("error").innerText;
 
     if ($('#soldeDu').val().length > 0)
-        message='Veuillez saisir un montant qui ne depasse pas votre solde: '+ solde;
+        message = 'Veuillez saisir un montant qui ne depasse pas votre solde: ' + solde;
     else
-        message='Veuillez saisir un Compte';
+        message = 'Veuillez saisir un Compte';
 
     var validate;
     if ($('#montant').val() === '' || $('#montant').val() === '.')
