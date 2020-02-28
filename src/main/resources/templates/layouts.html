@@ -44,7 +44,7 @@
     <script>
         $('#Select[[${duAu}]]').change(function () {
             var idValue = $(this).children(":selected").attr('value');
-
+            var duAu='[[${duAu}]]';
             if (idValue != 0) {
                 $.ajax({
                     url: "/formResult",
@@ -57,17 +57,50 @@
                         $('#solde[[${duAu}]]').val(result['solde']);
                         /*var yoursolde = document.getElementById("solde[[${duAu}]]").value;
                         console.log("value yoursolde: " + yoursolde);*/
+
+                        if (duAu === 'Du'){
+                            $('#nomAu').val("");
+                            $('#soldeAu').val("");
+
+                            $('#SelectAu').empty().append('<option value="0">Select Compte</option>');
+
+                            $.each(result['comptes'], function(i, d) {
+                                // You will need to alter the below to get the right values from your json object.  Guessing that d.id / d.modelName are columns in your carModels data
+                                $('#SelectAu').append('<option value="' + d.id + '">' + d.id + '</option>');
+                            });
+                        }
+
                         soldeValid();
+
                     }
                 });
-                console.log("after ajax");
+                //console.log("after ajax");
                 /*$('#nom').val(idValue);
                 $('#solde').val(idValue);*/
             } else {
                 $('#nom[[${duAu}]]').val("");
-                $('#solde[[${duAu}]]').val("")
-            }
+                $('#solde[[${duAu}]]').val("");
+                if (duAu === 'Du'){
+                    $.ajax({
+                        url: "/getAllComtes",
+                        type: "POST",
 
+                        success: function (result) {
+                            $('#nomAu').val("");
+                            $('#soldeAu').val("");
+
+                            $('#SelectAu').empty().append('<option value="0">Select Compte</option>');
+
+                            $.each(result, function(i, d) {
+                                // You will need to alter the below to get the right values from your json object.  Guessing that d.id / d.modelName are columns in your carModels data
+                                $('#SelectAu').append('<option value="' + d.id + '">' + d.id + '</option>');
+                            });
+
+                        }
+                    });
+                }
+
+            }
         });
     </script>
 

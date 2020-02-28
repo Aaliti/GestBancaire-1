@@ -35,5 +35,7 @@ public class CompteService {
         return compRepo.findAll(pageable);
     }
 
+    public List<Compte> getComptes(Long id){return compRepo.findComptes(id);};
+
 
 }

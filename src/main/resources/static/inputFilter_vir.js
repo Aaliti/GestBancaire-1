@@ -53,8 +53,15 @@ function soldeValid() {
             // $('label#error').css('background', 'red');
         }
 
-    } else if (validate != 0 && solde >= validate && $('#soldeAu').val().length > 0) {
-        $('button').removeAttr("disabled");
-        document.getElementById("error").style.display = 'none';
+    } else if (validate != 0 && solde >= validate ) {
+
+        if ($('#soldeAu').val().length > 0){
+            $('button').removeAttr("disabled");
+            document.getElementById("error").style.display = 'none';
+
+        }else {
+            $('button').attr("disabled", "disabled");
+            document.getElementById("error").innerHTML = 'Veuillez saisir un destinataire';
+        }
     }
 }
