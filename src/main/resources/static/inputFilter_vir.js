@@ -1,9 +1,5 @@
 function setInputFilter(textbox, inputFilter) {
     $('button').attr("disabled", "disabled");
-    //var solde = [[${soldeCompte}]];
-
-
-    //$('button#go').css('background', 'green');
 
     ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
         textbox.addEventListener(event, function () {
@@ -28,40 +24,39 @@ function setInputFilter(textbox, inputFilter) {
 
 function soldeValid() {
     var solde = +document.getElementById("soldeDu").value;
+    console.log(typeof solde + ": " + solde);
     var message = '';
-    //console.log(typeof solde + ": " + solde);
-    //document.getElementById("error").innerText;
 
-    if ($('#soldeDu').val().length > 0)
-        message = 'Veuillez saisir un montant qui ne depasse pas votre solde: ' + solde;
-    else
-        message = 'Veuillez saisir un Compte';
+    if ($('#soldeDu').val().length > 0 && $('#soldeAu').val().length > 0)
+        message = 'Veuillez saisir un montant qui ne dépasse pas votre solde: ' + solde;
+    else if ($('#soldeAu').val().length == 0)
+        message = 'Veuillez saisir le bénéficiaire';
 
     var validate;
-    if ($('#montant').val() === '' || $('#montant').val() === '.')
-        validate = 0;
-    else
-        validate = parseFloat($('#montant').val());
 
-    //console.log(document.theForm.action.value);
+    if ($('#montant').val() === '' || $('#montant').val() === '.') {
+        validate = 0;
+    } else {
+        validate = parseFloat($('#montant').val());
+    }
 
     if (validate === 0 || (solde < validate)) {
         $('button').attr("disabled", "disabled");
+        document.getElementById("error").innerHTML = message;
         if (solde < validate) {
             document.getElementById("error").style.display = 'inline-block';
-            document.getElementById("error").innerHTML = message;
-            // $('label#error').css('background', 'red');
+            //document.getElementById("error").innerHTML = message;
         }
 
-    } else if (validate != 0 && solde >= validate ) {
-
-        if ($('#soldeAu').val().length > 0){
+    } else if (validate != 0 && solde >= validate) {
+        if ($('#soldeAu').val().length > 0) {
             $('button').removeAttr("disabled");
             document.getElementById("error").style.display = 'none';
 
-        }else {
+        } else {
             $('button').attr("disabled", "disabled");
-            document.getElementById("error").innerHTML = 'Veuillez saisir un destinataire';
+            //document.getElementById("error").innerHTML = '';
         }
     }
+
 }

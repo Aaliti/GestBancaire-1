@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-
 public class OperationController {
 
     @Autowired
@@ -32,17 +31,17 @@ public class OperationController {
         return "comptes/list-comptes";
     }
 
-    @GetMapping(path = "/{id}/operations")
+    @GetMapping(path = "/{id}/historique")
     public String historiqueComptes(@PathVariable("id") long id, Model model) {
 
         model.addAttribute("nomCompte", compServ.getById(id).getNom());
         model.addAttribute("solde", operServ.getSolde(id));
         model.addAttribute("operations", operServ.getOperationsByCompte_Id(id));
 
-        return "comptes/operations";
+        return "comptes/historique";
     }
 
-    @GetMapping("/{id}/transaction")
+    @GetMapping("/{id}/operation/transaction")
     public String viewTransactions(@PathVariable("id") long id, Model model /*, HttpSession session*/) {
 
         Operation newOp = new Operation();
@@ -56,10 +55,10 @@ public class OperationController {
 
         System.out.println(compServ.getAll());
 
-        return "comptes/transactions";
+        return "comptes/transaction";
     }
 
-    @PostMapping("/operation/save")
+    @PostMapping("/operation/transaction/save")
     public String doTransaction(Model model, Operation operation, @RequestParam("compteId") long cpt_id, @RequestParam("action") String radio) /*HttpSession session,*/ {
 
         //long id = (long) session.getAttribute("id");
@@ -76,7 +75,24 @@ public class OperationController {
 
         operServ.save(operation);
 
-        return "redirect:/" + cpt_id + "/operations";
+        return "redirect:/" + cpt_id + "/historique";
+    }
+
+    @PostMapping("/operation/virement/save")
+    public String saveVirement(@RequestParam("selectDu") long cpt_id_du, @RequestParam("selectAu") long cpt_id_au, @RequestParam("montant") double montant) {
+        System.out.println("***** " + montant + "------- " + cpt_id_du + "++++++ " + cpt_id_au);
+        Operation operDebit = new Operation();
+        Operation operBenef = new Operation();
+
+        operDebit.setCompte(compServ.getById(cpt_id_du));
+        operDebit.setMontant(-montant);
+        operServ.save(operDebit);
+
+        operBenef.setCompte(compServ.getById(cpt_id_au));
+        operBenef.setMontant(+montant);
+        operServ.save(operBenef);
+
+        return "redirect:/comptes";
     }
 
     @GetMapping("/operation/virement")
@@ -93,8 +109,7 @@ public class OperationController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("nom", compServ.getById(id).getNom());
         map.put("solde", operServ.getSolde(id).toString());
-
-        map.put("comptes",compServ.getComptes(id));
+        map.put("comptes", compServ.getComptes(id));
 
         return map;
     }

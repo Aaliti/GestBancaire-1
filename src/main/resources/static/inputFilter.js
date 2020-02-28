@@ -1,10 +1,10 @@
 function setInputFilter(textbox, inputFilter) {
     $('button').attr("disabled", "disabled");
+
     //var solde = [[${soldeCompte}]];
     solde = +document.getElementById("soldeDu").value;
-    //console.log(typeof solde + ": " + solde);
+    console.log(typeof solde + ": " + solde);
     document.getElementById("error").innerText += solde;
-    $('button#go').css('background', 'green');
 
     ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
         textbox.addEventListener(event, function () {
@@ -15,16 +15,17 @@ function setInputFilter(textbox, inputFilter) {
                 this.oldSelectionEnd = this.selectionEnd;
 
                 var validate;
-                if (this.value === '' || this.value === '.')
-                    validate = 0;
-                else
-                    validate = parseFloat(this.value);
 
-                //console.log(document.theForm.action.value);
+                if (this.value === '' || this.value === '.') {
+                    validate = 0;
+                } else {
+                    validate = parseFloat(this.value);
+                    //console.log(typeof validate + ": " + validate)
+                }
 
                 if (validate === 0 || ((solde < validate) && (document.theForm.action.value === "Debit"))) {
                     $('button').attr("disabled", "disabled");
-                    if ((solde < validate) && (document.theForm.action.value === "Debit")) {
+                    if (solde < validate) {
                         document.getElementById("error").style.display = 'inline-block';
                         // $('label#error').css('background', 'red');
                     }

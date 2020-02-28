@@ -6,25 +6,29 @@
 <div class="container">
     <h2>Nouveau Virement</h2>
 
-    <div th:replace="layouts :: frag_transfert(duAu='Du', tabledata=${listeComptes})"></div>
-    <div th:replace="layouts :: frag_transfert(duAu='Au', tabledata=${listeComptes})"></div>
-    <br>
-    <div class="form-row">
-        <div class="col"></div>
-        <div class="col">
-            <input type="text" id="montant" placeholder="Montant" class="form-control"/>
-        </div>
+    <form action="/operation/virement/save" method="POST">
+        <div th:replace="layouts :: frag_transfert(duAu='Du', tabledata=${listeComptes})"></div>
+        <div th:replace="layouts :: frag_transfert(duAu='Au', tabledata=${listeComptes})"></div>
+        <br>
+        <div class="form-row">
+            <div class="col"></div>
+            <div class="col">
+                <input type="text" id="montant" placeholder="Montant" class="form-control" th:name="montant"/>
+            </div>
 
-        <div class="col">
-            <button type="submit" id="go" class="btn btn-success">Valider</button>
-        </div>
+            <div class="col">
+                <button type="submit" id="go" class="btn btn-success">Valider</button>
+            </div>
 
-        <div class="col"></div>
-        <label th:name="error" id="error" style="display: none"
-               class="alert alert-danger">
-        </label>
-    </div>
+            <div class="col"></div>
+            <label th:name="error" id="error" style="display: none"
+                   class="alert alert-danger">
+            </label>
+        </div>
+    </form>
+
 </div>
+
 <script type="text/javascript" th:src="@{/inputFilter_vir.js}"></script>
 <script>
     setInputFilter(document.getElementById("montant"), function (value) {

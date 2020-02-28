@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="header">
 
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,7 +23,7 @@
 
     <div class="col">
         <label>Select Compte</label>
-        <select class="form-control" th:id="'Select'+${duAu}">
+        <select class="form-control" th:id="'Select'+${duAu}" th:name="'select'+${duAu}">
             <option value="0">Select Compte</option>
             <option th:each="dataList: ${tabledata}" th:text="*{dataList.compteId}"
                     th:value="*{dataList.compteId}"></option>
@@ -44,7 +43,7 @@
     <script>
         $('#Select[[${duAu}]]').change(function () {
             var idValue = $(this).children(":selected").attr('value');
-            var duAu='[[${duAu}]]';
+            var duAu = '[[${duAu}]]';
             if (idValue != 0) {
                 $.ajax({
                     url: "/formResult",
@@ -58,14 +57,13 @@
                         /*var yoursolde = document.getElementById("solde[[${duAu}]]").value;
                         console.log("value yoursolde: " + yoursolde);*/
 
-                        if (duAu === 'Du'){
+                        if (duAu === 'Du') {
                             $('#nomAu').val("");
                             $('#soldeAu').val("");
 
                             $('#SelectAu').empty().append('<option value="0">Select Compte</option>');
 
-                            $.each(result['comptes'], function(i, d) {
-                                // You will need to alter the below to get the right values from your json object.  Guessing that d.id / d.modelName are columns in your carModels data
+                            $.each(result['comptes'], function (i, d) {
                                 $('#SelectAu').append('<option value="' + d.id + '">' + d.id + '</option>');
                             });
                         }
@@ -74,13 +72,12 @@
 
                     }
                 });
-                //console.log("after ajax");
                 /*$('#nom').val(idValue);
                 $('#solde').val(idValue);*/
             } else {
                 $('#nom[[${duAu}]]').val("");
                 $('#solde[[${duAu}]]').val("");
-                if (duAu === 'Du'){
+                if (duAu === 'Du') {
                     $.ajax({
                         url: "/getAllComtes",
                         type: "POST",
@@ -91,8 +88,7 @@
 
                             $('#SelectAu').empty().append('<option value="0">Select Compte</option>');
 
-                            $.each(result, function(i, d) {
-                                // You will need to alter the below to get the right values from your json object.  Guessing that d.id / d.modelName are columns in your carModels data
+                            $.each(result, function (i, d) {
                                 $('#SelectAu').append('<option value="' + d.id + '">' + d.id + '</option>');
                             });
 

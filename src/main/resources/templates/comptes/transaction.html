@@ -3,11 +3,11 @@
 <head th:replace="layouts :: header"></head>
 
 <body>
+
 <div class="container">
     <h2>Nouvelle Transaction</h2>
 
-
-    <form action="/operation/save" th:object="${newOp}" name="theForm" method="POST">
+    <form action="/operation/transaction/save" th:object="${newOp}" name="theForm" method="POST">
         <br><br>
         <label th:text="${nomCompte}"/>
         <input type="hidden" name="compteId" th:value="${id}"/>
@@ -17,12 +17,13 @@
         <label>Nature</label>
         <input type="radio" name="action" value="Credit" checked> <label>Créditer</label>
         <input type="radio" name="action" value="Debit"> <label>Débiter</label>
-        <button type="submit" id="go" class="btn btn-primary">Valider</button>
+        <button type="submit" id="go" class="btn btn-primary btn-success">Valider</button>
         <label th:name="error" id="error" style="display: none"
                class="alert alert-danger">Veuillez saisir un montant qui ne depasse pas votre solde:
         </label>
     </form>
 </div>
+
 <script type="text/javascript" th:src="@{/inputFilter.js}"></script>
 <script>
     setInputFilter(document.getElementById("montant"), function (value) {
