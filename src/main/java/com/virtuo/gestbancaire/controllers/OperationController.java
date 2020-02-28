@@ -89,10 +89,19 @@ public class OperationController {
 
     @PostMapping("/formResult")
     @ResponseBody
-    public HashMap<String, String> result(@RequestParam("id") long id) {
-        HashMap<String, String> map = new HashMap<>();
+    public HashMap<String, Object> result(@RequestParam("id") long id) {
+        HashMap<String, Object> map = new HashMap<>();
         map.put("nom", compServ.getById(id).getNom());
         map.put("solde", operServ.getSolde(id).toString());
+
+        map.put("comptes",compServ.getComptes(id));
+
         return map;
+    }
+
+    @PostMapping("/getAllComtes")
+    @ResponseBody
+    public List<Compte> result() {
+        return compServ.getAll();
     }
 }
