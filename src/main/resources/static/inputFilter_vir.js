@@ -31,7 +31,7 @@ function soldeValid() {
         message = 'Veuillez saisir un montant qui ne dépasse pas votre solde: ' + solde;
     else if ($('#soldeAu').val().length == 0)
         message = 'Veuillez saisir le bénéficiaire';
-    else{
+    else {
         message = 'Veuillez saisir le débiteur';
     }
 
