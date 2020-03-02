@@ -4,7 +4,7 @@
 
 <body>
 
-<div class="container text-center">
+<div class="container text-center" id="HTMLtoPDF">
     <br>
     <h2 th:text="'Les Opération de '+${nomCompte}"></h2>
     <br>
@@ -28,6 +28,11 @@
         </tbody>
     </table>
 </div>
+<div class="container text-right">
+    <button class="btn btn-info"  onclick="HTMLtoPDF()">Download PDF</button>
+</div>
 
+<script type="text/javascript" th:src="@{/jspdf.js}"></script>
+<script type="text/javascript" th:src="@{/pdfFromHTML.js}"></script>
 </body>
 </html>
