@@ -59,7 +59,8 @@ public class OperationController {
     }
 
     @PostMapping("/operation/transaction/save")
-    public String doTransaction(Model model, Operation operation, @RequestParam("compteId") long cpt_id, @RequestParam("action") String radio) /*HttpSession session,*/ {
+    public String doTransaction(Model model, Operation operation, @RequestParam("compteId") long cpt_id,
+                                @RequestParam("action") String radio) /*HttpSession session,*/ {
 
         //long id = (long) session.getAttribute("id");
 
@@ -79,7 +80,8 @@ public class OperationController {
     }
 
     @PostMapping("/operation/virement/save")
-    public String saveVirement(@RequestParam("selectDu") long cpt_id_du, @RequestParam("selectAu") long cpt_id_au, @RequestParam("montant") double montant) {
+    public String saveVirement(@RequestParam("selectDu") long cpt_id_du, @RequestParam("selectAu") long cpt_id_au,
+                               @RequestParam("montant") double montant) {
         System.out.println("***** " + montant + "------- " + cpt_id_du + "++++++ " + cpt_id_au);
         Operation operDebit = new Operation();
         Operation operBenef = new Operation();
