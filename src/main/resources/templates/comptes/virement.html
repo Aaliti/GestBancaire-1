@@ -3,27 +3,33 @@
 <head th:replace="layouts :: header"></head>
 
 <body>
-<div class="container">
+<div class="container text-center">
+    <br>
     <h2>Nouveau Virement</h2>
-
+    <br>
     <form action="/operation/virement/save" method="POST">
         <div th:replace="layouts :: frag_transfert(duAu='Du', tabledata=${listeComptes})"></div>
         <div th:replace="layouts :: frag_transfert(duAu='Au', tabledata=${listeComptes})"></div>
         <br>
         <div class="form-row">
             <div class="col"></div>
-            <div class="col">
+            <div class="col-6">
                 <input type="text" id="montant" placeholder="Montant" class="form-control" th:name="montant"/>
             </div>
 
             <div class="col">
-                <button type="submit" id="go" class="btn btn-success">Valider</button>
+                <button type="submit" id="go" class="btn btn-block btn-success">Valider</button>
+            </div>
+        </div>
+       <br>
+        <div class="form-row">
+
+            <div class="col">
+                <label th:name="error" id="error" style="display: none"
+                       class="col alert alert-danger">
+                </label>
             </div>
 
-            <div class="col"></div>
-            <label th:name="error" id="error" style="display: none"
-                   class="alert alert-danger">
-            </label>
         </div>
     </form>
 

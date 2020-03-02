@@ -15,11 +15,11 @@ public class HomeController {
     @Autowired
     CompteService compteServ;
 
-    @GetMapping("/")
+ /*   @GetMapping("/")
     public String getAll() {
 
         return "index";
-    }
+    }*/
 
 
 }

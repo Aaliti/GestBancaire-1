@@ -4,38 +4,45 @@
 
 <body>
 
-<div class="container">
-    <h3>Liste des Comptes</h3>
+    <div class="container text-center">
+        <br>
+        <br>
+        <h3>Liste des Comptes</h3>
+        <br>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th> Id</th>
+                <th> Nom</th>
+                <th> Solde</th>
+                <th> Historique</th>
+                <th> Transaction</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="aCompte : ${comptesList}">
+                <td th:text="${aCompte.compteId}"/>
+                <td th:text="${aCompte.nom}"/>
+                <td th:text="${aCompte.solde}"/>
+                <td>
+                    <a th:href="'/'+${aCompte.compteId}+'/historique'"
+                       class="btn btn-info btn-xs"> Historique
+                    </a>
+                </td>
+                <td>
+                    <a th:href="'/'+${aCompte.compteId}+'/operation/transaction'"
+                       class="btn btn-info btn-xs"> Transaction
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="container text-center">
+            <a th:href="@{/operation/virement}"
+               class="btn btn-info btn-lg btn-block"> Virement</a>
+        </div>
+    </div>
 
-    <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-        <tr>
-            <th> Id</th>
-            <th> Nom</th>
-            <th> Solde</th>
-            <th> Historique</th>
-            <th> Transaction</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="aCompte : ${comptesList}">
-            <td th:text="${aCompte.compteId}"/>
-            <td th:text="${aCompte.nom}"/>
-            <td th:text="${aCompte.solde}"/>
-            <td>
-                <a th:href="'/'+${aCompte.compteId}+'/historique'"
-                   class="btn btn-info btn-xs"> Historique
-                </a>
-            </td>
-            <td>
-                <a th:href="'/'+${aCompte.compteId}+'/operation/transaction'"
-                   class="btn btn-info btn-xs"> Transaction
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
 
 </body>
 </html>

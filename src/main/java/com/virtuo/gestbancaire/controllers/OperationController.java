@@ -22,7 +22,7 @@ public class OperationController {
     @Autowired
     OperationService operServ;
 
-    @GetMapping("/comptes")
+    @GetMapping("/")
     public String listComptes(Model model) {
 
         //List<Compte> comptes = compServ.getAll();
@@ -92,7 +92,7 @@ public class OperationController {
         operBenef.setMontant(+montant);
         operServ.save(operBenef);
 
-        return "redirect:/comptes";
+        return "redirect:/";
     }
 
     @GetMapping("/operation/virement")
@@ -119,4 +119,27 @@ public class OperationController {
     public List<Compte> result() {
         return compServ.getAll();
     }
+
+
+    /*@PostMapping("/operation/virement/save")
+    public String doVirementSave(@RequestParam("montant") double montant,@RequestParam("SelectDu") long compteIdDu,@RequestParam("SelectAu") long compteIdAu){
+
+        *//*System.out.println("++++++++++++++"+montant);
+        System.out.println("++++++++++++++"+compteIdDu);
+        System.out.println("++++++++++++++"+compteIdAu);
+*//*
+        Operation opeDebiteur = new Operation();
+        opeDebiteur.setCompte(compServ.getById(compteIdDu));
+        opeDebiteur.setMontant(-montant);
+        operServ.save(opeDebiteur);
+
+
+        Operation opeBeneficiaire = new Operation();
+        opeBeneficiaire.setCompte(compServ.getById(compteIdAu));
+        opeBeneficiaire.setMontant(montant);
+        operServ.save(opeBeneficiaire);
+
+
+        return "redirect:/" + compteIdDu + "/operations";
+    }*/
 }

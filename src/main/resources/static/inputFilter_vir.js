@@ -31,6 +31,9 @@ function soldeValid() {
         message = 'Veuillez saisir un montant qui ne dépasse pas votre solde: ' + solde;
     else if ($('#soldeAu').val().length == 0)
         message = 'Veuillez saisir le bénéficiaire';
+    else{
+        message = 'Veuillez saisir le débiteur';
+    }
 
     var validate;
 
@@ -43,7 +46,7 @@ function soldeValid() {
     if (validate === 0 || (solde < validate)) {
         $('button').attr("disabled", "disabled");
         document.getElementById("error").innerHTML = message;
-        if (solde < validate) {
+        if (solde < validate || ($('#soldeAu').val().length == 0)) {
             document.getElementById("error").style.display = 'inline-block';
             //document.getElementById("error").innerHTML = message;
         }
